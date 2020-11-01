@@ -18,3 +18,7 @@
 .markdown-editor .mde-text {
     height: calc(100vh - 179px) !important;
 }
+
+.upload-image {
+    vertical-align: -0.125em !important;
+}
