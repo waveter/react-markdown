@@ -1,6 +1,6 @@
 .body-container {
     min-height: calc(100vh - 128px);
-    background-color: #f9f4cb;
+    background-color:  #f1f1f1;
     display: flex;
 }
 
@@ -9,6 +9,7 @@
 }
 
 .markdown-preview {
+    position: relative;
     flex-basis: 50%;
     height: calc(100vh - 129px);
     overflow: auto;
@@ -21,4 +22,19 @@
 
 .upload-image, .upload-file, .download-file {
     vertical-align: -0.125em !important;
+}
+
+.download-preview-file {
+    position: absolute;
+    top: 0.75em;
+    right: 1em;
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #17a2b8;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

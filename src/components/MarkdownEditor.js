@@ -9,15 +9,16 @@ class MarkdownEditor extends React.Component {
   constructor() {
     super();
     this.state = {
-      input: "# This is a header\n\nAnd this is a paragraph"
+      markdownContent: ""
     };
     this.setValue = this.setValue.bind(this);
     this.handleUploadFile = this.handleUploadFile.bind(this);
-    this.handleDownloadFile = this.handleDownloadFile.bind(this);
+    this.handleDownloadPreviewFile = this.handleDownloadPreviewFile.bind(this);
+    this.handleDownloadTextFile = this.handleDownloadTextFile.bind(this);
   }
 
   setValue(value) {
-    this.setState({ input: value });
+    this.setState({ markdownContent: value });
   }
 
   handleOpenUploadFile() {
@@ -40,7 +41,7 @@ class MarkdownEditor extends React.Component {
       icon: () => (
         <FaDownload
           className="download-file"
-          onClick={this.handleDownloadFile}
+          onClick={this.handleDownloadTextFile}
         />
       ),
       execute: () => {}
@@ -65,17 +66,23 @@ class MarkdownEditor extends React.Component {
     reader.readAsText(e.target.files[0]);
   }
 
-  handleDownloadFile() {
-    // console.log(document.)
-    const listEl = document.getElementsByClassName("markdown-preview");
-    console.log(listEl[0]);
-    console.log(listEl[0].innerHTML);
-    const blob = new Blob([listEl[0].innerHTML], { type: "text/plain" });
+  saveFile(fileName, content) {
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
-    link.download = `markdown-download.html`;
+    link.download = fileName;
     link.href = url;
     link.click();
+  }
+
+  handleDownloadPreviewFile() {
+    // console.log(document.)
+    const listEl = document.getElementsByClassName("markdown-preview");
+    this.saveFile("preview-download.html", listEl[0].innerHTML);
+  }
+
+  handleDownloadTextFile() {
+    this.saveFile("markdown-download.md", this.state.markdownContent);
   }
 
   render() {
@@ -100,12 +107,18 @@ class MarkdownEditor extends React.Component {
               ["unordered-list", "ordered-list", "checked-list"],
               ["upload-file", "download-file"]
             ]}
-            value={this.state.input}
+            value={this.state.markdownContent}
             onChange={this.setValue}
           />
         </div>
         <div className="markdown-preview">
-          <ReactMarkdown source={this.state.input} allowDangerousHtml />
+          <div className="download-preview-file">
+            <FaDownload onClick={this.handleDownloadPreviewFile} />
+          </div>
+          <ReactMarkdown
+            source={this.state.markdownContent}
+            allowDangerousHtml
+          />
         </div>
       </div>
     );
