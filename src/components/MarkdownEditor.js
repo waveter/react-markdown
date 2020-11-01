@@ -17,6 +17,12 @@ class MarkdownEditor extends React.Component {
     this.handleDownloadTextFile = this.handleDownloadTextFile.bind(this);
   }
 
+  componentDidMount() {
+    const listTextArea = document.getElementsByTagName("textarea");
+    listTextArea[0].placeholder =
+      "Type the markdown content here or upload a markdown file by clicking at Upload button";
+  }
+
   setValue(value) {
     this.setState({ markdownContent: value });
   }
