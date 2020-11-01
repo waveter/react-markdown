@@ -6,7 +6,7 @@ export default () => {
   return (
     <Navbar toggleable="lg" type="dark" variant="info">
       <Navbar.Brand href="#">
-        <h1>MarkdownEditor</h1>
+        <h1>Markdown Editor</h1>
       </Navbar.Brand>
 
       <Navbar.Toggle target="nav-collapse"></Navbar.Toggle>
