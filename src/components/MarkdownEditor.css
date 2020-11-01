@@ -19,6 +19,6 @@
     height: calc(100vh - 179px) !important;
 }
 
-.upload-image {
+.upload-image, .upload-file, .download-file {
     vertical-align: -0.125em !important;
 }
