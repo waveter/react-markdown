@@ -1,0 +1,6 @@
+1. Compile 
+	Show result (console.log)
+	Show location of error
+2. Autoformat
+3. Suggestion for common phrase or common symbol
+For example: {} [] ...

@@ -1,0 +1,40 @@
+.body-container {
+    min-height: calc(100vh - 128px);
+    background-color: #f9f4cb;
+}
+
+.ace_editor {
+    margin-bottom: 20px;
+    margin-left: 10px;
+    overflow: auto !important;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.result-container {
+    margin: 10px;
+    background-color: white;
+    padding: 10px;
+}
+
+.error-section {
+    color: red;
+}
+
+.common-tokens-container {
+    margin: 20px;
+}
+
+.btn-token-container {
+    display: inline-block;
+    padding: 5px;
+}
