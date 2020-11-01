@@ -5,22 +5,6 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import "./MarkdownEditor.css";
 import { FaImage, FaUpload, FaDownload } from "react-icons/fa";
 
-const uploadImageCommand = {
-  name: "upload-image-command",
-  icon: () => <FaImage className="upload-image" />,
-  execute: opts => {
-    opts.textApi.replaceSelection("TBD");
-  }
-};
-
-const downloadFileCommand = {
-  name: "download-file-command",
-  icon: () => <FaDownload className="download-file" />,
-  execute: opts => {
-    opts.textApi.replaceSelection("TBD");
-  }
-};
-
 class MarkdownEditor extends React.Component {
   constructor() {
     super();
@@ -29,6 +13,7 @@ class MarkdownEditor extends React.Component {
     };
     this.setValue = this.setValue.bind(this);
     this.handleUploadFile = this.handleUploadFile.bind(this);
+    this.handleDownloadFile = this.handleDownloadFile.bind(this);
   }
 
   setValue(value) {
@@ -37,6 +22,29 @@ class MarkdownEditor extends React.Component {
 
   handleOpenUploadFile() {
     document.getElementById("file").click();
+  }
+
+  getUploadImageCommand() {
+    return {
+      name: "upload-image-command",
+      icon: () => <FaImage className="upload-image" />,
+      execute: opts => {
+        opts.textApi.replaceSelection("TBD");
+      }
+    };
+  }
+
+  getDownloadFileCommand() {
+    return {
+      name: "download-file-command",
+      icon: () => (
+        <FaDownload
+          className="download-file"
+          onClick={this.handleDownloadFile}
+        />
+      ),
+      execute: () => {}
+    };
   }
 
   getUploadFileCommand() {
@@ -57,6 +65,19 @@ class MarkdownEditor extends React.Component {
     reader.readAsText(e.target.files[0]);
   }
 
+  handleDownloadFile() {
+    // console.log(document.)
+    const listEl = document.getElementsByClassName("markdown-preview");
+    console.log(listEl[0]);
+    console.log(listEl[0].innerHTML);
+    const blob = new Blob([listEl[0].innerHTML], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.download = `markdown-download.html`;
+    link.href = url;
+    link.click();
+  }
+
   render() {
     return (
       <div className="body-container">
@@ -69,9 +90,9 @@ class MarkdownEditor extends React.Component {
         <div className="markdown-editor">
           <ReactMde
             commands={{
-              "upload-image": uploadImageCommand,
+              "upload-image": this.getUploadImageCommand(),
               "upload-file": this.getUploadFileCommand(),
-              "download-file": downloadFileCommand
+              "download-file": this.getDownloadFileCommand()
             }}
             toolbarCommands={[
               ["header", "bold", "italic", "strikethrough"],
